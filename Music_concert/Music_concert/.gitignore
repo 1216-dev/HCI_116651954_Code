@@ -1,0 +1,7 @@
+.eslintcache
+node_modules
+example/performances/tmp
+*.blend1
+
+.vercel
+.env*.local
