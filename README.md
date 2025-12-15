@@ -1,7 +1,6 @@
-
 # HCI Project Portfolio: AURA & VR Concert
 
-Welcome to the **HCI (Human-Computer Interaction)** code repository. This collection features two advanced interactive projects exploring the intersection of computer vision, virtual reality, and audio-visual performance.
+Welcome to the **HCI (Human-Computer Interaction)** code repository. This collection features two advanced interactive projects exploring the intersection of **computer vision**, **virtual reality**, and **generative audio-visual performance**.
 
 ## 📂 Repository Structure
 
@@ -12,116 +11,129 @@ Welcome to the **HCI (Human-Computer Interaction)** code repository. This collec
 
 ## 🌟 Project 1: AURA (Gesture-Controlled Audio-Visual Experience)
 
-**AURA** is an immersive web application that transforms your hand and head movements into real-time audio-visual art. It creates a touchless interface where your body becomes the controller for a generative music and light show.
+**AURA** is an immersive web application that transforms your hand and head movements into real-time audio-visual art. It creates a **touchless natural user interface (NUI)** where your body becomes the controller for a generative music and light show.
 
-### 🧠 Theory & HCI Principles
+### 🧠 HCI Theory & Design Principles
 
-AURA demonstrates several key HCI principles:
+This project validates several core Human-Computer Interaction concepts:
 
-1.  **Natural User Interface (NUI)**: By removing physical controllers and using hand tracking, the system reduces the barrier between the user's intent and the digital expression.
-2.  **Direct Manipulation**: Users "pinch" to grasp sound parameters or "twist" to filter audio, mimicking physical interactions with real-world objects.
-3.  **Feedback Loops**:
-    *   **Visual**: A skeletal overlay confirms the system "sees" the user.
-    *   **Auditory**: Immediate sound changes result from movement, reinforcing the connection.
-4.  **Spatial Mapping**: The application maps the 3D coordinates (x, y, z) of the user's hand to 3 distinct audio parameters (e.g., pitch, speed, distortion), creating a multi-dimensional instrument.
+#### 1. Embodied Interaction & Proprioception
+The system leverages **proprioception** (the body's ability to sense its own position) to allow users to control complex parameters without looking at a controller. By mapping hand positions to audio filters, users develop "muscle memory" for the instrument.
+
+#### 2. The Gulf of Execution vs. Evaluation
+*   **Bridging Execution**: Simple gestures (pinch, twist) map directly to understandable actions (play sound, warp sound), reducing the cognitive load required to figure out "how" to do something.
+*   **Bridging Evaluation**: The system provides immediate **multi-modal feedback** (visual particles pulsing + audio pitch shifting), confirming to the user that their action had an effect.
+
+#### 3. Spatial Mapping & Semiotics
+*   **Verticality (Y-Axis)**: Universally associated with "High" vs "Low". We map this to **Pitch** or **Speed** (Up = Faster/Higher).
+*   **Proximity (Z-Axis)**: Associated with "Intensity". Bringing hands closer to the camera increases the **Reverb** or **Distortion**, mimicking the physical act of "grabbing" or "intensifying" an object.
+
+### 🔄 System Architecture
+
+The system follows a linear pipeline from **Sensation** (Camera) to **Perception** (Computer Vision) to **Action** (Audio/Visual Synthesis).
+
+<!-- 
+    [FLOWCHART PLACEHOLDER] 
+    Please insert your flowchart image here using the following syntax:
+    ![System Flowchart](./path/to/your/image.png)
+-->
+
+#### Architectural Flow Description
+1.  **Input Layer**: Captures raw video feed from the user's webcam.
+2.  **Vision Processing (MediaPipe)**:
+    *   Extracts 21 3D landmarks per hand.
+    *   Calculates vector distances to detect "Pinch" (Thumb tip ↔ Index tip).
+    *   Calculates roll angle to detect "Twist".
+3.  **State Management (Zustand)**: Normalizes these raw values (0.0 to 1.0) and broadcasts them to subscribers.
+4.  **Reaction Layer**:
+    *   **Audio (Tone.js)**: Modulates oscillator frequencies and filter Q-values.
+    *   **Visuals (Three.js)**: Updates particle velocity and shader uniforms.
+
+*(Current Implementation Flowchart)*
+```mermaid
+graph TD
+    User[User Body Movement] -->|Webcam Feed| Camera[Camera Input]
+    Camera -->|Raw Frames| MediaPipe[MediaPipe Vision API]
+
+    subgraph "Perception Layer"
+        MediaPipe -->|Hand Landmarks (x,y,z)| GestureEngine[Gesture Analysis Engine]
+        GestureEngine -->|Calculate Euclidean Dist| Pinch[Pinch Detection]
+        GestureEngine -->|Calculate Rotation| Twist[Twist Detection]
+    end
+
+    subgraph "Application State"
+        Pinch -->|Normalized Value 0-1| Store[Zustand Store]
+        Twist -->|Normalized Angle| Store
+    end
+
+    subgraph "Feedback Layer"
+        Store -->|Modulate Params| Audio[Tone.js Audio Engine]
+        Store -->|Update Uniforms| Visuals[Three.js Particles]
+        
+        Audio -->|Sound| User
+        Visuals -->|Light/Motion| User
+    end
+```
 
 ### 🛠️ Tech Stack
 
-*   **Frontend**: React + Vite
-*   **Computer Vision**: Google MediaPipe (Hands & Face Mesh)
-*   **3D Graphics**: Three.js + @react-three/fiber
-*   **Audio Engine**: Tone.js
-*   **State Management**: Zustand
+*   **Frontend**: React 18, Vite (Fast HMR)
+*   **Computer Vision**: Google MediaPipe Tasks-Vision
+*   **3D Graphics**: Three.js, React Three Fiber, Drei
+*   **Audio Synthesis**: Tone.js (Web Audio API wrapper)
 *   **Styling**: TailwindCSS
-
-### 🔄 System Architecture (Flow Chart)
-
-```mermaid
-graph TD
-    User[User Action] -->|Webcam Feed| Camera[Camera Input]
-    Camera -->|Video Frame| MediaPipe[MediaPipe Vision API]
-
-    subgraph "Processing Loop"
-        MediaPipe -->|Landmarks (x,y,z)| GestureEngine[Gesture Analysis Engine]
-        GestureEngine -->|Detect Pinch/Twist| State[Global State (Zustand)]
-        GestureEngine -->|Track Head Orientation| State
-    end
-
-    subgraph "Output Generation"
-        State -->|Audio Params| Audio[Tone.js Audio Engine]
-        State -->|Visual Params| Visuals[Three.js / React Fiber Scene]
-        
-        Audio -->|Sound Waves| Speaker[Speakers]
-        Visuals -->|3D Rendering| Display[Screen]
-    end
-```
 
 ---
 
 ## 🕶️ Project 2: VR Concert Platform
 
-This project is a tool to create and experience virtual reality concerts directly in the web browser. It allows for the integration of chroma-keyed video performances into 3D environments.
+This project is a tool to create and experience virtual reality concerts directly in the web browser. It integrates chroma-keyed video performances into 3D environments, allowing for **telepresence**.
 
-### 🧠 Theory & HCI Principles
+### 🧠 HCI Theory & Immersion
 
-1.  **Immersion & Presence**: The primary goal is to create a sense of "being there" (telepresence) through stereoscopic rendering and spatial audio.
-2.  **Locomotion in VR**: Implements "teleportation" (translocation) to allow users to navigate large virtual spaces without motion sickness.
-3.  **Diegetic UI**: User interfaces (like track titles or selection screens) are embedded in the 3D world rather than as 2D overlays, maintaining immersion.
+#### 1. Diegetic User Interfaces
+Unlike traditional HUDs (Heads-Up Displays) that overlay 2D text on the screen, this project uses **diegetic UI elements**. Menus, track titles, and controls exist *within* the 3D world (e.g., floating text meshes), maintaining the **suspension of disbelief**.
+
+#### 2. Locomotion & Comfort
+VR motion sickness (simulation sickness) is a critical HCI challenge caused by sensory conflict (eyes see motion, inner ear does not). This project solves it using **Teleportation (Translocation)**:
+*   Users point to a destination and "blink" there.
+*   This avoids continuous artificial acceleration, the primary cause of nausea.
 
 ### 🛠️ Tech Stack
 
 *   **Core**: Vanilla JavaScript (ES6 Modules)
-*   **Rendering**: Three.js (WebGL)
-*   **VR Support**: WebVR Polyfill (for compatibility across devices)
-*   **Server**: http-server (Node.js)
+*   **Rendering**: WebGL via Three.js
+*   **VR Polyfill**: WebVR Polyfill (Ensures compatibility on mobile/desktop without headsets)
+*   **Server**: Node.js http-server
 
 ---
 
 ## 🚀 Getting Started
 
-Follow these instructions to run the projects locally.
-
 ### Prerequisites
+*   **Node.js** (v16+)
+*   **Git**
 
-*   [Node.js](https://nodejs.org/) (Version 16 or higher recommended)
-*   [Git](https://git-scm.com/)
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd Code_HCI
-```
-
-### 2. Running AURA (Gesture AV)
+### Installation
 
 ```bash
-# Navigate to the project directory
+# 1. Clone the repository
+git clone https://github.com/1216-dev/HCI_116651954_Code.git
+cd HCI_116651954_Code
+
+# 2. Run AURA (Gesture Project)
 cd Music_Generation/Music_Generation/gesture-av-experience
-
-# Install dependencies
 npm install
-
-# Start the development server
 npm run dev
-```
-*   Open your browser (usually `http://localhost:5173`) and grant camera permissions.
+# > Open http://localhost:5173
 
-### 3. Running VR Concert
-
-```bash
-# Navigate to the project directory
-cd Music_concert/Music_concert
-
-# Install dependencies
+# 3. Run VR Concert
+# (Open a new terminal)
+cd ../../../Music_concert/Music_concert
 npm install
-
-# Start the local server
 npm start
+# > Open http://localhost:8080/example
 ```
-*   Access the concert via the URL provided in the terminal (usually `http://localhost:8080/example`).
-
----
 
 ## 📄 License
 This codebase is intended for educational and portfolio purposes.
