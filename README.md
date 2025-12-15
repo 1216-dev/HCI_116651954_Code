@@ -32,11 +32,6 @@ The system leverages **proprioception** (the body's ability to sense its own pos
 
 The system follows a linear pipeline from **Sensation** (Camera) to **Perception** (Computer Vision) to **Action** (Audio/Visual Synthesis).
 
-<!-- 
-    [FLOWCHART PLACEHOLDER] 
-    Please insert your flowchart image here using the following syntax:
-    ![System Flowchart](./path/to/your/image.png)
--->
 
 #### Architectural Flow Description
 1.  **Input Layer**: Captures raw video feed from the user's webcam.
