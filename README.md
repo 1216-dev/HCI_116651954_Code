@@ -9,7 +9,7 @@ Welcome to the **HCI (Human-Computer Interaction)** code repository. This collec
 
 ---
 
-## 🌟 Project 1: AURA (Gesture-Controlled Audio-Visual Experience)
+## 🌟 Project Part 1: AURA (Gesture-Controlled Audio-Visual Experience)
 
 **AURA** is an immersive web application that transforms your hand and head movements into real-time audio-visual art. It creates a **touchless natural user interface (NUI)** where your body becomes the controller for a generative music and light show.
 
@@ -48,7 +48,7 @@ This architecture ensures **low-latency**, synchronized audio-visual feedback su
 
 ---
 
-## 🕶️ Project 2: VR Concert Platform
+## 🕶️ Project Part 2: VR Concert Platform
 
 The **VR Concert** project enables users to attend and interact with live-style performances in a virtual environment directly from the browser. It emphasizes **presence**, **telepresence**, and gesture-based interaction over traditional UI control.
 
@@ -74,7 +74,19 @@ To mitigate VR motion sickness caused by sensory mismatch, the system uses **tel
 - **Server:** Node.js http-server  
 
 ---
+## 🌟 Project 1: AURA — Gesture-Controlled Audio-Visual Experience
 
+**AURA** is a real-time, browser-based system that transforms free-hand gestures into expressive audio and visual output. It implements a **touchless Natural User Interface (NUI)** where the user’s body becomes the primary input device for generative music and visuals.
+
+![Gesture Interaction Overview](./images/aura-gesture-overview.png)
+*Figure 1: Live hand tracking and gesture-driven audio-visual interaction.*
+
+![Gesture Parameter Mapping](./images/aura-parameter-mapping.png)
+*Figure 2: Mapping of pinch and twist gestures to audio parameters such as reverb, delay, filter, and speed.*
+![Flow of work](./images/aura-parameter-mapping.png)
+*Figure 3: Flow chart
+
+---
 ## 🚀 Getting Started
 
 ### Prerequisites
