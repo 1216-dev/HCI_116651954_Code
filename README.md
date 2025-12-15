@@ -13,38 +13,82 @@ Welcome to the **HCI (Human-Computer Interaction)** code repository. This collec
 
 **AURA** is an immersive web application that transforms your hand and head movements into real-time audio-visual art. It creates a **touchless natural user interface (NUI)** where your body becomes the controller for a generative music and light show.
 
-### 🧠 HCI Theory & Design Principles
+### 🔄 System Architecture (Conceptual)
 
-This project validates several core Human-Computer Interaction concepts:
+The system follows a perception–action loop consistent with human information processing:
 
-#### 1. Embodied Interaction & Proprioception
-The system leverages **proprioception** (the body's ability to sense its own position) to allow users to control complex parameters without looking at a controller. By mapping hand positions to audio filters, users develop "muscle memory" for the instrument.
+1. **Input Layer**  
+   Captures live webcam video.
 
-#### 2. The Gulf of Execution vs. Evaluation
-*   **Bridging Execution**: Simple gestures (pinch, twist) map directly to understandable actions (play sound, warp sound), reducing the cognitive load required to figure out "how" to do something.
-*   **Bridging Evaluation**: The system provides immediate **multi-modal feedback** (visual particles pulsing + audio pitch shifting), confirming to the user that their action had an effect.
+2. **Vision Processing (MediaPipe)**  
+   - Extracts **21 3D landmarks per hand**  
+   - Computes:
+     - Pinch via thumb–index distance
+     - Wrist rotation for twist gestures
 
-#### 3. Spatial Mapping & Semiotics
-*   **Verticality (Y-Axis)**: Universally associated with "High" vs "Low". We map this to **Pitch** or **Speed** (Up = Faster/Higher).
-*   **Proximity (Z-Axis)**: Associated with "Intensity". Bringing hands closer to the camera increases the **Reverb** or **Distortion**, mimicking the physical act of "grabbing" or "intensifying" an object.
+3. **State Management (Zustand)**  
+   - Normalizes gesture values (0–1 range)
+   - Distributes interaction state across the application
 
-### 🔄 System Architecture
+4. **Reaction Layer**
+   - **Audio Engine (Tone.js):** Modulates oscillators and filters
+   - **Visual Engine (Three.js):** Updates particles and shaders
 
-The system follows a linear pipeline from **Sensation** (Camera) to **Perception** (Computer Vision) to **Action** (Audio/Visual Synthesis).
+This architecture ensures **low-latency**, synchronized audio-visual feedback suitable for expressive interaction.
+
+---
+
+### 🛠️ Tech Stack — AURA
+
+- **Frontend:** React 18, Vite  
+- **Computer Vision:** Google MediaPipe Tasks-Vision  
+- **3D Graphics:** Three.js, React Three Fiber, Drei  
+- **Audio:** Tone.js (Web Audio API)  
+- **Styling:** Tailwind CSS  
+
+---
+
+## 🕶️ Project 2: VR Concert Platform
+
+The **VR Concert** project enables users to attend and interact with live-style performances in a virtual environment directly from the browser. It emphasizes **presence**, **telepresence**, and gesture-based interaction over traditional UI control.
+
+---
+
+### 🧠 HCI Theory & Immersion
+
+#### 1. Diegetic User Interfaces
+Instead of overlaying traditional HUD elements, this system uses **diegetic UI**, where controls and information exist naturally within the 3D scene. This preserves immersion and supports suspension of disbelief.
+
+#### 2. Locomotion & User Comfort
+To mitigate VR motion sickness caused by sensory mismatch, the system uses **teleportation-based locomotion**:
+- Users select a destination and instantly relocate
+- Eliminates artificial acceleration, reducing nausea
+
+---
+
+### 🛠️ Tech Stack — VR Concert
+
+- **Core:** Vanilla JavaScript (ES6 Modules)  
+- **Rendering:** WebGL via Three.js  
+- **VR Compatibility:** WebVR Polyfill  
+- **Server:** Node.js http-server  
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v16+)
+- Git
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/1216-dev/HCI_116651954_Code.git
+cd HCI_116651954_Code
 
 
-#### Architectural Flow Description
-1.  **Input Layer**: Captures raw video feed from the user's webcam.
-2.  **Vision Processing (MediaPipe)**:
-    *   Extracts 21 3D landmarks per hand.
-    *   Calculates vector distances to detect "Pinch" (Thumb tip ↔ Index tip).
-    *   Calculates roll angle to detect "Twist".
-3.  **State Management (Zustand)**: Normalizes these raw values (0.0 to 1.0) and broadcasts them to subscribers.
-4.  **Reaction Layer**:
-    *   **Audio (Tone.js)**: Modulates oscillator frequencies and filter Q-values.
-    *   **Visuals (Three.js)**: Updates particle velocity and shader uniforms.
-
-*(Current Implementation Flowchart)*
 ```mermaid
 graph TD
     User[User Body Movement] -->|Webcam Feed| Camera[Camera Input]
