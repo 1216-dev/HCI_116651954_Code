@@ -83,7 +83,7 @@ To mitigate VR motion sickness caused by sensory mismatch, the system uses **tel
 
 ![Gesture Parameter Mapping](./images/aura-parameter-mapping.png)
 *Figure 2: Mapping of pinch and twist gestures to audio parameters such as reverb, delay, filter, and speed.*
-![Flow of work](./images/aura-parameter-mapping.png)
+![Flow of work](./images/aura-parameter-mapping.png](https://github.com/1216-dev/HCI_116651954_Code/blob/main/Flow_Of_Work.png)
 *Figure 3: Flow chart
 
 ---
