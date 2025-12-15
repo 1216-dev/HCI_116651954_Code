@@ -78,13 +78,15 @@ To mitigate VR motion sickness caused by sensory mismatch, the system uses **tel
 
 **AURA** is a real-time, browser-based system that transforms free-hand gestures into expressive audio and visual output. It implements a **touchless Natural User Interface (NUI)** where the user’s body becomes the primary input device for generative music and visuals.
 
-![Gesture Interaction Overview](./images/aura-gesture-overview.png](https://github.com/1216-dev/HCI_116651954_Code/blob/main/create.png)
+![Gesture Interaction Overview](https://raw.githubusercontent.com/1216-dev/HCI_116651954_Code/main/Concert.png)
 *Figure 1: Live hand tracking and gesture-driven audio-visual interaction.*
 
-![Gesture Parameter Mapping](./images/aura-parameter-mapping.png)
+![Gesture Parameter Mapping](https://raw.githubusercontent.com/1216-dev/HCI_116651954_Code/main/create.png)
 *Figure 2: Mapping of pinch and twist gestures to audio parameters such as reverb, delay, filter, and speed.*
-![Flow of work](./images/aura-parameter-mapping.png](https://github.com/1216-dev/HCI_116651954_Code/blob/main/Flow_Of_Work.png)
-*Figure 3: Flow chart
+
+![Flow of Work](https://raw.githubusercontent.com/1216-dev/HCI_116651954_Code/main/Flow_Of_Work.png)
+*Figure 3: End-to-end interaction flow of the system.*
+
 
 ---
 ## 🚀 Getting Started
